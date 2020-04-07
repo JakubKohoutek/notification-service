@@ -1,0 +1,66 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: |
+            npm ci
+            npm run test
+  deploy:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run: 
+          name: Add server to known hosts
+          command: |
+            ssh-keyscan $IP_ADDRESS >> ~/.ssh/known_hosts
+      - run:
+          name: Build and start the app
+          command: |
+            ssh "$USER"@"$IP_ADDRESS" << 'EOF'
+            PORT=4280
+            ERROR_FILE="./process.err"
+            LOG_FILE="./process.out"
+            set -e
+            cd notification-service
+            git fetch origin
+            git reset --hard origin/master
+            nvm use
+            npm ci
+            npm run build
+            if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
+              echo "Killing process $PROCESS_ID occupying port $PORT"
+              kill $PROCESS_ID
+            else
+              echo "No currently running process on port $PORT"
+            fi
+            if [ -s "$ERROR_FILE" ]; then
+              rm "$ERROR_FILE"
+            fi
+            PORT="$PORT" nohup node ./lib/index.js > "$LOG_FILE" 2> "$ERROR_FILE" < /dev/null &
+            sleep 15
+            if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
+              echo "Application available at port $PORT"
+              echo "Standard output log:"
+              cat "$LOG_FILE"
+            else
+              echo "No currently running process on port $PORT"
+              echo "Standard output log:"
+              cat "$LOG_FILE"
+              echo "Error log:"
+              cat "$ERROR_FILE"
+              exit 1
+            fi
+            EOF
+workflows:
+  version: 2
+  release:
+    jobs:
+      - test
+      - deploy
+
