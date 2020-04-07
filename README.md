@@ -15,7 +15,7 @@ in [template.env file](./template.env).
 
 ## Running the Application
 
-To run the skill handler, execute:
+To run the service, execute:
 
 ```bash
 npm start

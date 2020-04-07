@@ -18,6 +18,6 @@ export const createServer = (): Server => {
 
   // Listen on selected port
   return app.listen(PORT, (): void => {
-    console.info(`Skill handler is listening on port ${PORT}!`);
+    console.info(`Notification service is listening on port ${PORT}!`);
   });
 };
