@@ -42,7 +42,7 @@ jobs:
             if [ -s "$ERROR_FILE" ]; then
               rm "$ERROR_FILE"
             fi
-            PORT="$PORT" nohup node ./lib/index.js > "$LOG_FILE" 2> "$ERROR_FILE" < /dev/null &
+            nohup node -r dotenv/config ./lib/index.js > "$LOG_FILE" 2> "$ERROR_FILE" < /dev/null &
             sleep 15
             if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
               echo "Application available at port $PORT"
