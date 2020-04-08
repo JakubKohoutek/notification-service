@@ -2,6 +2,8 @@ import bodyParser from 'body-parser';
 import express, {Request, Response} from 'express';
 import {Server} from 'http';
 
+import sendSMS from './controller/smsNotification';
+
 const PORT = process.env.PORT || 4280;
 
 export const createServer = (): Server => {
@@ -15,6 +17,8 @@ export const createServer = (): Server => {
   app.get('/', async (req: Request, res: Response): Promise<Response> =>
     res.send('Notification service is up and running.')
   );
+
+  app.post('/sms', sendSMS);
 
   // Listen on selected port
   return app.listen(PORT, (): void => {
