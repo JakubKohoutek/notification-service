@@ -1,5 +1,8 @@
 import {Server} from 'http';
 import request from 'supertest';
+import dotenv from 'dotenv';
+
+dotenv.config({path: 'integration.env'});
 
 import {createServer} from './server';
 
@@ -11,7 +14,6 @@ describe('Server', () => {
       app.close();
     }
   });
-
 
   it('should respond with OK status on get request', async () => {
     app = createServer();
