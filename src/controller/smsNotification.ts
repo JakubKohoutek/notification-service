@@ -1,17 +1,13 @@
-import aws from 'aws-sdk';
 import {Request, Response} from 'express';
+import {PublishInput, SNS} from '../utils/aws';
 
-const {AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION} = process.env;
-if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !AWS_DEFAULT_REGION) {
-  console.log(`AWS environment variable(s) missing, can't initialize the SDK`);
-  process.exit(1);
-}
+const ALLOWED_COUNTRY_CODES = ['+420'];
 
-const s3Config = {
-  sslEnabled: true,
-};
+const countryCodeIsAllowed = (phoneNumber: string): Boolean =>
+  ALLOWED_COUNTRY_CODES.some((countryCode) => phoneNumber.startsWith(countryCode));
 
-new aws.S3(s3Config);
+const messageSizeFitsLimit = (message: string): Boolean =>
+  Buffer.from(message, 'utf8').byteLength < 140;
 
 type MessageRequestBody = {
   phoneNumber?: string;
@@ -27,6 +23,25 @@ const sendSMS = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    if (!countryCodeIsAllowed(phoneNumber)) {
+      res.status(403).send({error: 'Country code not allowed.'});
+      return;
+    }
+
+    if (!messageSizeFitsLimit(message)) {
+      res.status(403).send({error: 'Message size exceeded the allowed limit of 140 bytes.'});
+      return;
+    }
+
+    const messageParams: PublishInput = {
+      Message: message,
+      PhoneNumber: phoneNumber
+    };
+
+    await SNS.publish(messageParams).promise();
+
+    console.log('SMS message sent:');
+    console.dir(messageParams);
     res.status(200).send({result: 'Message sent'});
   } catch (error) {
     console.error(error);
