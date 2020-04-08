@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+
 import {PublishInput, SNS} from '../utils/aws';
 
 const ALLOWED_COUNTRY_CODES = ['+420'];
