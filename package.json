@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc && echo 'Production build available in lib folder'",
-    "start": "npx tsc && npx node lib/index.js",
-    "try": "npx ts-node src/index.ts",
+    "start": "npx tsc && npx node -r dotenv/config lib/index.js",
     "test": "npx jest",
     "lint": "npx tslint --project . && echo 'No issues found'"
   },
@@ -26,10 +25,13 @@
   "homepage": "https://github.com/JakubKohoutek/notification-service#readme",
   "dependencies": {
     "@types/supertest": "^2.0.8",
+    "aws-sdk": "^2.655.0",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/express": "^4.17.4",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.0",
