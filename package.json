@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc && echo 'Production build available in lib folder'",
     "start": "npx tsc && npx node -r dotenv/config lib/index.js",
-    "test": "npx jest",
+    "test": "npx node -r ./helpers/loadIntegrationEnv.js node_modules/jest/bin/jest",
     "lint": "npx tslint --project . && echo 'No issues found'"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "@types/express": "^4.17.4",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.0",
+    "jest": "^25.3.0",
     "supertest": "^4.0.2",
     "ts-jest": "^25.3.1",
     "ts-node": "^8.8.2",
