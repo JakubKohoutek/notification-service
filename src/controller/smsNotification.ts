@@ -4,16 +4,16 @@ import {PublishInput, SNS} from '../utils/aws';
 
 const ALLOWED_COUNTRY_CODES = ['+420'];
 
-const countryCodeIsAllowed = (phoneNumber: string): Boolean =>
+const countryCodeIsAllowed = (phoneNumber: string): boolean =>
   ALLOWED_COUNTRY_CODES.some((countryCode) => phoneNumber.startsWith(countryCode));
 
-const messageSizeFitsLimit = (message: string): Boolean =>
+const messageSizeFitsLimit = (message: string): boolean =>
   Buffer.from(message, 'utf8').byteLength < 140;
 
 type MessageRequestBody = {
   phoneNumber?: string;
   message?: string;
-}
+};
 
 const sendSMS = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -36,7 +36,7 @@ const sendSMS = async (req: Request, res: Response): Promise<void> => {
 
     const messageParams: PublishInput = {
       Message: message,
-      PhoneNumber: phoneNumber
+      PhoneNumber: phoneNumber,
     };
 
     await SNS.publish(messageParams).promise();

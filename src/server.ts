@@ -16,8 +16,10 @@ export const createServer = (): Server => {
   app.use(bodyParser.json());
 
   // Add services
-  app.get('/', async (req: Request, res: Response): Promise<Response> =>
-    res.send('Notification service is up and running.')
+  app.get(
+    '/',
+    async (req: Request, res: Response): Promise<Response> =>
+      res.send('Notification service is up and running.'),
   );
   app.post('/sms', allowOnlyAuthenticated, sendSMS);
 

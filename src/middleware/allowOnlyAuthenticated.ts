@@ -9,7 +9,7 @@ if (!ACCESS_TOKEN) {
 
 type BodyWithToken = {
   token?: string;
-}
+};
 
 const allowOnlyAuthenticated = (req: Request, res: Response, next: NextFunction): void => {
   try {
