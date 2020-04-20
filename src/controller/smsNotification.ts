@@ -39,7 +39,7 @@ const sendSMS = async (req: Request, res: Response): Promise<void> => {
       PhoneNumber: phoneNumber,
     };
 
-    await SNS.publish(messageParams).promise();
+    // await SNS.publish(messageParams).promise();
 
     console.log('SMS message sent:');
     console.dir(messageParams);
