@@ -21,7 +21,7 @@ const sendEmail = async (req: Request, res: Response): Promise<void> => {
       Destination: {
         ToAddresses: [email],
       },
-      Source: process.env.VERIFIED_EMAIL_ADDRESS,
+      Source: `Notification Service <${process.env.VERIFIED_EMAIL_ADDRESS}>`,
       Message: {
         Subject: {
           Data: subject,
