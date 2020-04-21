@@ -7,7 +7,7 @@
     "build": "npx tsc && echo 'Production build available in lib folder'",
     "start": "npx tsc && npx node -r dotenv/config lib/index.js",
     "test": "npx node -r ./helpers/loadIntegrationEnv.js node_modules/jest/bin/jest --verbose --silent",
-    "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx,.jsx . && echo 'No issues found'"
+    "lint": "eslint --max-warnings 0 --fix --ext .js,.ts,.tsx,.jsx . && echo 'No issues found'"
   },
   "repository": {
     "type": "git",
