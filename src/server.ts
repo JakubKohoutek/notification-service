@@ -1,8 +1,10 @@
 import bodyParser from 'body-parser';
-import express, {Request, Response} from 'express';
+import express from 'express';
 import {Server} from 'http';
 
+import serviceUp from './controller/serviceUp';
 import sendSMS from './controller/smsNotification';
+import sendEmail from './controller/emailNotification';
 
 import allowOnlyAuthenticated from './middleware/allowOnlyAuthenticated';
 
@@ -16,12 +18,9 @@ export const createServer = (): Server => {
   app.use(bodyParser.json());
 
   // Add services
-  app.get(
-    '/',
-    async (req: Request, res: Response): Promise<Response> =>
-      res.send('Notification service is up and running.'),
-  );
+  app.get('/', serviceUp);
   app.post('/sms', allowOnlyAuthenticated, sendSMS);
+  app.post('/email', allowOnlyAuthenticated, sendEmail);
 
   // Listen on selected port
   return app.listen(PORT, (): void => {
