@@ -35,8 +35,9 @@ const sendEmail = async (req: Request, res: Response): Promise<void> => {
     };
 
     await SES.sendEmail(emailRequest).promise();
-
-    console.log('Email message sent:');
+    
+    const timestamp = new Date();
+    console.log(`[${timestamp.toUTCString()}] Email message sent:`);
     console.dir({
       email,
       subject,

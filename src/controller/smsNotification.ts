@@ -41,7 +41,8 @@ const sendSMS = async (req: Request, res: Response): Promise<void> => {
 
     // await SNS.publish(messageParams).promise();
 
-    console.log('SMS message sent:');
+    const timestamp = new Date();
+    console.log(`[${timestamp.toUTCString()}] SMS message sent:`);
     console.dir(messageParams);
     res.status(200).send({result: 'Message sent'});
   } catch (error) {
