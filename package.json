@@ -4,7 +4,7 @@
   "description": "Notification service API",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc src/index.ts && npx tsc src/server.ts && npx tsc src/controller/emailNotification.ts && npx tsc src/controller/serviceUp.ts && npx tsc src/controller/smsNotification.ts && npx tsc src/middleware/allowOnlyAuthenticated.ts && npx tsc src/utils/aws.ts && echo 'Production build available in lib folder'",
+    "build": "node --max-old-space-size=1024 $(which tsc) && echo 'Production build available in lib folder'",
     "start": "npx tsc && npx node -r dotenv/config lib/index.js",
     "test": "npx node -r ./helpers/loadIntegrationEnv.js node_modules/jest/bin/jest --verbose --silent",
     "lint": "eslint --max-warnings 0 --fix . && echo 'No issues found'"
