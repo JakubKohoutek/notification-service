@@ -11,6 +11,8 @@ if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !AWS_DEFAULT_REGION) {
 }
 
 const SNS = new AWS.SNS({region: process.env.AWS_DEFAULT_REGION});
+
+// Configure default SNS attributes
 SNS.setSMSAttributes({
   attributes: {
     DefaultSenderID: 'Guardian',
