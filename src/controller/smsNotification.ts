@@ -47,8 +47,11 @@ const sendSMS = async (req: Request, res: Response): Promise<void> => {
     res.status(200).send({result: 'Message sent'});
   } catch (error) {
     console.error(error);
-
-    res.status(500).send({error: error.message});
+    const errorMessage =
+      typeof error === 'object' && error !== null && 'message' in error
+        ? (error as { message: string }).message
+        : 'Unknown error occurred while sending SMS.';
+    res.status(500).send({error: errorMessage});
   }
 };
 

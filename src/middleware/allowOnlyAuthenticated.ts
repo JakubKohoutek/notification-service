@@ -11,7 +11,11 @@ type BodyWithToken = {
   token?: string;
 };
 
-const allowOnlyAuthenticated = (req: Request, res: Response, next: NextFunction): void => {
+const allowOnlyAuthenticated = (
+  req: Request<{}, any, BodyWithToken>,
+  res: Response,
+  next: NextFunction,
+): void => {
   try {
     const {token} = req.body as BodyWithToken;
 
@@ -28,8 +32,11 @@ const allowOnlyAuthenticated = (req: Request, res: Response, next: NextFunction)
     next();
   } catch (error) {
     console.error(error);
-
-    res.status(500).send({error: error.message});
+    const errorMessage =
+      typeof error === 'object' && error !== null && 'message' in error
+        ? (error as { message: string }).message
+        : 'Unknown error occurred during authentication.';
+    res.status(500).send({error: errorMessage});
   }
 };
 

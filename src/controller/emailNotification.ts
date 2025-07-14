@@ -35,7 +35,7 @@ const sendEmail = async (req: Request, res: Response): Promise<void> => {
     };
 
     await SES.sendEmail(emailRequest).promise();
-    
+
     const timestamp = new Date();
     console.log(`[${timestamp.toUTCString()}] Email message sent:`);
     console.dir({
@@ -47,7 +47,12 @@ const sendEmail = async (req: Request, res: Response): Promise<void> => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).send({error: error.message});
+    const errorMessage =
+      typeof error === 'object' && error !== null && 'message' in error
+        ? (error as { message: string }).message
+        : 'Unknown error occurred while sending email.';
+
+    res.status(500).send({error: errorMessage});
   }
 };
 

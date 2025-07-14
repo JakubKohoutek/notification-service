@@ -25,24 +25,24 @@
   "homepage": "https://github.com/JakubKohoutek/notification-service#readme",
   "dependencies": {
     "@types/supertest": "^2.0.8",
-    "aws-sdk": "^2.655.0",
-    "body-parser": "^1.19.0",
+    "aws-sdk": "^2.1692.0",
+    "body-parser": "^1.20.3",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.21.2"
   },
   "devDependencies": {
-    "@types/aws-sdk": "^2.7.0",
-    "@types/express": "^4.17.4",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.11.0",
-    "@typescript-eslint/eslint-plugin": "^2.27.0",
-    "@typescript-eslint/parser": "^2.27.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-jest": "^23.8.2",
-    "jest": "^25.3.0",
+    "@types/aws-sdk": "^2.7.4",
+    "@types/express": "^4.17.23",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.13",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-jest": "^29.0.1",
+    "jest": "^30.0.4",
     "supertest": "^4.0.2",
-    "ts-jest": "^25.3.1",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3"
+    "ts-jest": "^29.4.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^5.8.3"
   }
 }

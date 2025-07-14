@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:22
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
             npm run test
   deploy:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:22
     steps:
       - checkout
       - run: 
@@ -30,7 +30,7 @@ jobs:
             cd notification-service
             git fetch origin
             git reset --hard origin/master
-            nvm use
+            nvm install
             npm ci
             npm run build
             if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
