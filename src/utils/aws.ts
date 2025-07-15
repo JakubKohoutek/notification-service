@@ -15,7 +15,7 @@ const SNS = new AWS.SNS({region: process.env.AWS_DEFAULT_REGION});
 // Configure default SNS attributes
 SNS.setSMSAttributes({
   attributes: {
-    DefaultSenderID: 'Guardian',
+    DefaultSenderID: 'AlertBot',
     DefaultSMSType: 'Transactional',
   },
 }, (err) => {
