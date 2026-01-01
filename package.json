@@ -26,9 +26,9 @@
   "dependencies": {
     "@types/supertest": "^2.0.8",
     "aws-sdk": "^2.1692.0",
-    "body-parser": "^1.20.3",
+    "body-parser": "^1.20.4",
     "dotenv": "^8.2.0",
-    "express": "^4.21.2"
+    "express": "^4.22.1"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.4",
